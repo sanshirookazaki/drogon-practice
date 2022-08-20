@@ -8,40 +8,40 @@
 #pragma once
 
 #include <drogon/HttpController.h>
-#include "RestfulPostsCtrlBase.h"
 
 #include "Posts.h"
+#include "RestfulPostsCtrlBase.h"
 using namespace drogon;
 using namespace drogon_model::blog;
 /**
  * @brief this class is created by the drogon_ctl command.
- * this class is a restful API controller for reading and writing the posts table.
+ * this class is a restful API controller for reading and writing the posts
+ * table.
  */
 
-class RestfulPostsCtrl: public drogon::HttpController<RestfulPostsCtrl>, public RestfulPostsCtrlBase
-{
-  public:
-    METHOD_LIST_BEGIN
-    ADD_METHOD_TO(RestfulPostsCtrl::getOne,"/posts/{1}",Get,Options);
-    ADD_METHOD_TO(RestfulPostsCtrl::updateOne,"/posts/{1}",Put,Options);
-    ADD_METHOD_TO(RestfulPostsCtrl::deleteOne,"/posts/{1}",Delete,Options);
-    ADD_METHOD_TO(RestfulPostsCtrl::get,"/posts",Get,Options);
-    ADD_METHOD_TO(RestfulPostsCtrl::create,"/posts",Post,Options);
-    //ADD_METHOD_TO(RestfulPostsCtrl::update,"/posts",Put,Options);
-    METHOD_LIST_END
-     
-    void getOne(const HttpRequestPtr &req,
-                std::function<void(const HttpResponsePtr &)> &&callback,
-                Posts::PrimaryKeyType &&id);
-    void updateOne(const HttpRequestPtr &req,
-                   std::function<void(const HttpResponsePtr &)> &&callback,
-                   Posts::PrimaryKeyType &&id);
-    void deleteOne(const HttpRequestPtr &req,
-                   std::function<void(const HttpResponsePtr &)> &&callback,
-                   Posts::PrimaryKeyType &&id);
-    void get(const HttpRequestPtr &req,
-             std::function<void(const HttpResponsePtr &)> &&callback);
-    void create(const HttpRequestPtr &req,
-             std::function<void(const HttpResponsePtr &)> &&callback);
+class RestfulPostsCtrl : public drogon::HttpController<RestfulPostsCtrl>,
+                         public RestfulPostsCtrlBase {
+ public:
+  METHOD_LIST_BEGIN
+  ADD_METHOD_TO(RestfulPostsCtrl::getOne, "/v1/posts/{1}", Get, Options);
+  ADD_METHOD_TO(RestfulPostsCtrl::updateOne, "/v1/posts/{1}", Put, Options);
+  ADD_METHOD_TO(RestfulPostsCtrl::deleteOne, "/v1/posts/{1}", Delete, Options);
+  ADD_METHOD_TO(RestfulPostsCtrl::get, "/v1/posts", Get, Options);
+  ADD_METHOD_TO(RestfulPostsCtrl::create, "/v1/posts", Post, Options);
+  // ADD_METHOD_TO(RestfulPostsCtrl::update,"/v1/posts",Put,Options);
+  METHOD_LIST_END
 
+  void getOne(const HttpRequestPtr &req,
+              std::function<void(const HttpResponsePtr &)> &&callback,
+              Posts::PrimaryKeyType &&id);
+  void updateOne(const HttpRequestPtr &req,
+                 std::function<void(const HttpResponsePtr &)> &&callback,
+                 Posts::PrimaryKeyType &&id);
+  void deleteOne(const HttpRequestPtr &req,
+                 std::function<void(const HttpResponsePtr &)> &&callback,
+                 Posts::PrimaryKeyType &&id);
+  void get(const HttpRequestPtr &req,
+           std::function<void(const HttpResponsePtr &)> &&callback);
+  void create(const HttpRequestPtr &req,
+              std::function<void(const HttpResponsePtr &)> &&callback);
 };

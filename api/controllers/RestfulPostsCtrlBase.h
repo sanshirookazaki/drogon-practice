@@ -16,37 +16,35 @@ using namespace drogon::orm;
 using namespace drogon_model::blog;
 /**
  * @brief this class is created by the drogon_ctl command.
- * this class is a restful API controller for reading and writing the posts table.
+ * this class is a restful API controller for reading and writing the posts
+ * table.
  */
 
-class RestfulPostsCtrlBase : public RestfulController
-{
-  public:
-    void getOne(const HttpRequestPtr &req,
-                std::function<void(const HttpResponsePtr &)> &&callback,
-                Posts::PrimaryKeyType &&id);
-    void updateOne(const HttpRequestPtr &req,
-                   std::function<void(const HttpResponsePtr &)> &&callback,
-                   Posts::PrimaryKeyType &&id);
-    void deleteOne(const HttpRequestPtr &req,
-                   std::function<void(const HttpResponsePtr &)> &&callback,
-                   Posts::PrimaryKeyType &&id);
-    void get(const HttpRequestPtr &req,
-             std::function<void(const HttpResponsePtr &)> &&callback);
-    void create(const HttpRequestPtr &req,
-                std::function<void(const HttpResponsePtr &)> &&callback);
+class RestfulPostsCtrlBase : public RestfulController {
+ public:
+  void getOne(const HttpRequestPtr &req,
+              std::function<void(const HttpResponsePtr &)> &&callback,
+              Posts::PrimaryKeyType &&id);
+  void updateOne(const HttpRequestPtr &req,
+                 std::function<void(const HttpResponsePtr &)> &&callback,
+                 Posts::PrimaryKeyType &&id);
+  void deleteOne(const HttpRequestPtr &req,
+                 std::function<void(const HttpResponsePtr &)> &&callback,
+                 Posts::PrimaryKeyType &&id);
+  void get(const HttpRequestPtr &req,
+           std::function<void(const HttpResponsePtr &)> &&callback);
+  void create(const HttpRequestPtr &req,
+              std::function<void(const HttpResponsePtr &)> &&callback);
 
+  //  void update(const HttpRequestPtr &req,
+  //              std::function<void(const HttpResponsePtr &)> &&callback);
 
-//  void update(const HttpRequestPtr &req,
-//              std::function<void(const HttpResponsePtr &)> &&callback);
+  orm::DbClientPtr getDbClient() {
+    return drogon::app().getDbClient(dbClientName_);
+  }
 
-    orm::DbClientPtr getDbClient() 
-    {
-        return drogon::app().getDbClient(dbClientName_);
-    }
-
-  protected:
-    /// Ensure that subclasses inherited from this class are instantiated.
-    RestfulPostsCtrlBase();
-    const std::string dbClientName_{"default"};
+ protected:
+  /// Ensure that subclasses inherited from this class are instantiated.
+  RestfulPostsCtrlBase();
+  const std::string dbClientName_{"default"};
 };
